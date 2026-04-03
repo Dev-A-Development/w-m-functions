@@ -62,7 +62,7 @@
 	"routes": [
 		{
 			"custom_domain": true,
-			"pattern": "?"
+			"pattern": "w-m-functions.julian-c4a.workers.dev"
 		}
 	],
 	"send_metrics": false,
