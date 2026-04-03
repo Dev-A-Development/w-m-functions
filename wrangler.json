@@ -68,5 +68,5 @@
 		"SHOPIFY_APP_HANDLE": "",
 		"SHOPIFY_APP_URL": ""
 	},
-	"workers_dev": false
+	"workers_dev": true
 }
