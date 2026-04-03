@@ -30,7 +30,7 @@
 			"remote": true
 		}
 	],
-	"logpush": true,
+	"logpush": false,
 	"migrations": [
 		{
 			"tag": "v1",
