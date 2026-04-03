@@ -23,13 +23,20 @@
 		{
 			"binding": "SESSION_KV",
 			"id": "?"
+		},
+		{
+			"binding": "w_m_functions",
+			"id": "c38b1eb4aca84ba393fbbaa145e123e6",
+			"remote": true
 		}
 	],
 	"logpush": true,
 	"migrations": [
 		{
 			"tag": "v1",
-			"new_sqlite_classes": ["ShopifyDurableObject"]
+			"new_sqlite_classes": [
+				"ShopifyDurableObject"
+			]
 		}
 	],
 	"observability": {
@@ -48,7 +55,7 @@
 		"producers": [
 			{
 				"queue": "w-m-functions",
-				"binding": "WEBHOOK_QUEUE"
+				"binding": "w_m_functions"
 			}
 		]
 	},
