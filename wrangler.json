@@ -55,7 +55,7 @@
 		"producers": [
 			{
 				"queue": "w-m-functions",
-				"binding": "w_m_functions"
+				"binding": "w_m_functions_queue"
 			}
 		]
 	},
