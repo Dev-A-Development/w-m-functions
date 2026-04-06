@@ -63,10 +63,7 @@
 	"send_metrics": false,
 	"upload_source_maps": true,
 	"vars": {
-		"NODE_VERSION": 22,
-		"SHOPIFY_API_KEY": "",
-		"SHOPIFY_APP_HANDLE": "",
-		"SHOPIFY_APP_URL": ""
-	},
+		"NODE_VERSION": 22
+		},
 	"workers_dev": true
 }
