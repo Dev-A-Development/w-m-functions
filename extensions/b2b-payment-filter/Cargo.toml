@@ -5,6 +5,11 @@ edition = "2021"
 
 [dependencies]
 shopify_function = "2.1.0"
+serde = { version = "1", features = ["derive"] }
+
+[lib]
+crate-type = ["cdylib"]
+
 
 [profile.release]
 lto = true

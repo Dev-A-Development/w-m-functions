@@ -1,0 +1,16 @@
+query Input {
+  cart {
+    buyerIdentity {
+      purchasingCompany {
+        company {
+          id
+          name
+        }
+      }
+    }
+  }
+  paymentMethods {
+    id
+    name
+  }
+}
