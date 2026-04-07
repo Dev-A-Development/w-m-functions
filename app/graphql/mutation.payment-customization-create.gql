@@ -1,0 +1,15 @@
+mutation PaymentCustomizationCreate($functionId: String!, $title: String!) {
+  paymentCustomizationCreate(paymentCustomization: {
+    functionId: $functionId
+    title: $title
+    enabled: true
+  }) {
+    paymentCustomization {
+      id
+    }
+    userErrors {
+      message
+      field
+    }
+  }
+}

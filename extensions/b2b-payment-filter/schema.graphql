@@ -2984,7 +2984,7 @@ input FunctionRunResult {
   """
   The ordered list of operations to apply to the list of payment methods.
   """
-  operations: [DeprecatedOperation!]!
+  operations: [Operation!]!
 }
 
 """
