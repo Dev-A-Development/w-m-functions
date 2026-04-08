@@ -93,7 +93,7 @@ export default function AppIndex({ actionData, loaderData }: AppIndexProps) {
 
 	return (
 		<s-page inlineSize="small" heading={t("app")}>
-			<s-button
+			{/* <s-button
 				commandFor="modal"
 				command="--show"
 				slot="primary-action"
@@ -110,7 +110,7 @@ export default function AppIndex({ actionData, loaderData }: AppIndexProps) {
 				<s-box padding="base">
 					<s-paragraph>{t("message")}</s-paragraph>
 				</s-box>
-			</s-modal>
+			</s-modal> */}
 
 			<s-section>
 				<s-box padding="base">
