@@ -8,6 +8,7 @@ shopify_function = "2.1.0"
 serde = { version = "1", features = ["derive"] }
 
 [lib]
+name = "b2c_cod_hider"
 crate-type = ["cdylib"]
 
 [profile.release]
