@@ -5,5 +5,13 @@
 	"login": "Log in",
 	"page": "Page",
 	"pricingPlans": "Pricing Plans",
-	"shopDomain": "Shop domain"
+	"shopDomain": "Shop domain",
+	"save": "Save",
+	"reset": "Reset",
+	"functionSettings": "Payment Function Settings",
+	"functionSettingsDescription": "Enable or disable payment customization functions. Changes take effect at the next checkout.",
+	"b2bPaymentFilterLabel": "B2B Payment Filter",
+	"b2bPaymentFilterDescription": "Hide Klarna, Clearpay, Afterpay, and PayPal from business customers. Keep enabled to filter payment methods for B2B buyers.",
+	"b2cCodHiderLabel": "B2C COD Hider",
+	"b2cCodHiderDescription": "Hide Cash on Delivery from consumer and guest customers. Keep enabled to prevent COD usage for non-business buyers."
 }
