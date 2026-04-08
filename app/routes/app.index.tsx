@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useFetcher } from "react-router";
 
 import { API_VERSION } from "#app/const";
+import PaymentCustomizationCreateMutation from "#app/graphql/mutation.payment-customization-create.gql?raw";
 import Shop from "#app/graphql/query.shop.gql?raw";
 import * as shopify from "#app/shopify.server";
 import { log } from "#app/shopify.shared";
@@ -93,26 +94,40 @@ export default function AppIndex({ actionData, loaderData }: AppIndexProps) {
 
 	return (
 		<s-page inlineSize="small" heading={t("app")}>
-			{/* <s-button
-				commandFor="modal"
-				command="--show"
-				slot="primary-action"
-				type="submit"
-				variant="primary"
-			>
-				{t("primary")}
-			</s-button>
-
-			<s-modal id="modal">
-				<s-button slot="secondary-actions" commandFor="modal" command="--hide">
-					{t("close")}
-				</s-button>
-				<s-box padding="base">
-					<s-paragraph>{t("message")}</s-paragraph>
-				</s-box>
-			</s-modal> */}
-
+			{/* Setup Section */}
 			<s-section>
+				<s-box padding="base">
+					<s-heading>Setup Payment Customizations</s-heading>
+					<s-paragraph>Click the button below to activate the payment customization functions.</s-paragraph>
+				</s-box>
+
+				<fetcher.Form method="POST">
+					<input type="hidden" name="actionType" value="setup" />
+					<s-button type="submit" variant="primary" disabled={fetcher.state !== "idle"}>
+						{fetcher.state !== "idle" ? "Setting up..." : "Setup Functions"}
+					</s-button>
+				</fetcher.Form>
+
+				{actionData?.success && actionData?.b2bCustomizationId && (
+					<s-box padding="base">
+						<s-paragraph>
+							✅ Payment customizations activated!
+							<br />
+							B2B Filter ID: {actionData.b2bCustomizationId}
+							<br />
+							COD Hider ID: {actionData.codCustomizationId}
+						</s-paragraph>
+					</s-box>
+				)}
+
+				{actionData?.error && (
+					<s-box padding="base">
+						<s-paragraph>❌ Error: {actionData.error}</s-paragraph>
+					</s-box>
+				)}
+			</s-section>
+
+			{/* Settings Section */}
 				<s-box padding="base">
 					<s-heading>{t("functionSettings")}</s-heading>
 					<s-paragraph>{t("functionSettingsDescription")}</s-paragraph>
@@ -197,6 +212,43 @@ export async function clientAction({ serverAction }: Route.ClientActionArgs) {
 export async function action({ request }: Route.ActionArgs) {
 	return shopify.handler(async () => {
 		const formData = await request.formData();
+		const actionType = formData.get("actionType");
+
+		// Handle function setup
+		if (actionType === "setup") {
+			const { client } = await shopify.admin(request);
+
+			const B2B_FILTER_FUNCTION_ID = "YOUR_B2B_FILTER_FUNCTION_ID";
+			const COD_HIDER_FUNCTION_ID = "YOUR_COD_HIDER_FUNCTION_ID";
+
+			const activate = async (functionId: string, title: string) => {
+				const { data, errors } = await client.request(PaymentCustomizationCreateMutation, {
+					variables: {
+						functionId,
+						title,
+					},
+				});
+
+				log.debug("routes/app.index#action#activate", { functionId, title, data, errors });
+
+				if (errors) {
+					throw new Error(`Failed to activate ${title}: ${errors.message}`);
+				}
+
+				return data;
+			};
+
+			const b2bResult = await activate(B2B_FILTER_FUNCTION_ID, "B2B Payment Filter");
+			const codResult = await activate(COD_HIDER_FUNCTION_ID, "B2C COD Hider");
+
+			return {
+				success: true,
+				b2bCustomizationId: b2bResult?.paymentCustomizationCreate?.paymentCustomization?.id,
+				codCustomizationId: codResult?.paymentCustomizationCreate?.paymentCustomization?.id,
+			};
+		}
+
+		// Handle settings save
 		const settings: FunctionSettings = {
 			b2bPaymentFilter: formData.get("b2bPaymentFilter") === "true",
 			b2cCodHider: formData.get("b2cCodHider") === "true",
